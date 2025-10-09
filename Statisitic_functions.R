@@ -1,11 +1,13 @@
 # Load all necessary libraries
-library(data.table)
-library(SPEI)
-library(trend)
-library(gamlss)
-library(gamlss.dist)
-library(extRemes) # For fevd() function
-library(e1071)    # For skewness() function
+
+required_packages <- c("data.table", "SPEI", "trend", "gamlss", "gamlss.dist", "extRemes", "e1071")
+for (pkg in required_packages) {, 
+  if (!require(pkg, character.only = TRUE)) {
+    install.packages(pkg)
+  }
+  library(pkg, character.only = TRUE)
+}
+
 
 # --- Reusable Functions for Seasonal Analysis ---
 
@@ -496,4 +498,5 @@ calculate_statistics <- function(dt, season_map, calculate_daily_avg = FALSE, re
   }
   
   return(results_list)
+
 }
